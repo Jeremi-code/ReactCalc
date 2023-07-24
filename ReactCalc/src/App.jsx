@@ -4,27 +4,28 @@ function App() {
 
   return (
     <div className="calculator-grid">
-      <div className="output"></div>
+      <div className="output">
         <div className="previous-operand"></div>
-        <Button className="span-two" >AC</Button>
-        <Button >DEL</Button>
-        <Button>/</Button>
-        <Button>1</Button>
-        <Button>2</Button>
-        <Button>3</Button>
-        <Button>*</Button>
-        <Button>4</Button>
-        <Button>5</Button>
-        <Button>6</Button>
-        <Button>+</Button>
-        <Button>7</Button>
-        <Button>8</Button>
-        <Button>9</Button>
-        <Button>-</Button>
-        <Button>*</Button>
-        <Button>.</Button>
-        <Button>0</Button>
-        <Button className="span-two">#</Button>  
+        <div className="current-operand"></div>
+        </div>
+        <button className="span-two" >AC</button>
+        <button >DEL</button>
+        <button>/</button>
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>*</button>
+        <button>4</button>
+        <button>5</button>
+        <button>6</button>
+        <button>+</button>
+        <button>7</button>
+        <button>8</button>
+        <button>9</button>
+        <button>-</button>
+        <button>.</button>
+        <button>0</button>
+        <button className="span-two">=</button>  
  
     </div>
   )
