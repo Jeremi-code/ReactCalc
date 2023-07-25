@@ -66,6 +66,24 @@ function reducer (state, { type, payload }) {
           operation : null,
           currentOperand: evaluate(state)
         }
+
+    case ACTIONS.DELETE_DIGIT :
+        if (state.overwrite == true) {
+          return {
+            ...state,
+            overwrite:false,
+            currentOperand:null
+          }
+        }
+        if (state.currentOperand.length() == 1){
+          return {...state, currentOperand :null}
+
+        }  
+        return {
+          ...state,
+          currentOperand:state.currentOperand.slice(0,-1)
+        }
+        
     }
   }
 
