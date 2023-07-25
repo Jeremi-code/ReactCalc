@@ -11,24 +11,61 @@ export const ACTIONS = {
   EVALUATE: 'evaluate',
 }
 function reducer (state, { type, payload }) {
-  switch (type) {
+  switch (type) { 
     case ACTIONS.ADD_DIGIT:
-      if(payload.digit === "0" && state.currentOperand === "0") return state
-      if(payload.digit === "." && state.currentOperand.includes(".")) return state
+        if(payload.digit === "0" && state.currentOperand === "0") return state
+        if(payload.digit === "." && state.currentOperand.includes(".")) return state
 
-      return {
-        ...state,
-        currentOperand: `${state.currentOperand || ""}${payload.digit}`,
-      }
-      case ACTIONS.CLEAR:
+        return {
+          ...state,
+          currentOperand: `${state.currentOperand || ""}${payload.digit}`,
+        }
+    case ACTIONS.CLEAR:
         return {}
-        
+
     case ACTIONS.CHOOSE_OPERATION:
-      return {
-        ...state,
-        previousOperand: state.currentOperand,
+        if (state.currentOperand == null && state.previousOperand == null){
+          return state
+        }
+        if (state.currentOperand == null) {
+          return {
+            ...state,
+            operation:payload.operation,
+          }
+        }
+        if(state.previousOperand == null) {
+          return {
+            ...state,
+            operation: payload.operation,
+            previousOperand:state.currentOperand,
+            currentOperand:null
+          }
+        }
+        return {
+          ...state,
+          previousOperand: evaluate(state),
+          operation: payload.operation,
+          currentOperand: null
 
       }
+    }
+  }
+
+function evaluate({currentOperand, previousOperand, operation}) {
+    const prev = parseFloat(previousOperand)
+    const current = parseFloat(currentOperand)
+    if (isNaN(prev) || isNaN(current)) return
+    switch (operation) {
+        case "+":
+          return prev + current
+        case "-":
+          return prev - current
+        case "*":
+          return prev * current
+        case "/":
+          return prev / current
+        default:
+          return
     }
   }
 
@@ -57,7 +94,7 @@ function App() {
         <OperationButton operation="-" dispatch={dispatch}/>
         <DigitButton digit="." dispatch={dispatch}/>
         <DigitButton digit="0" dispatch={dispatch}/>
-        <button className="span-two">=</button>  
+        <button className="span-two" onClick={() => dispatch({type:ACTIONS.EVALUATE})}>=</button>  
  
     </div>
   )
